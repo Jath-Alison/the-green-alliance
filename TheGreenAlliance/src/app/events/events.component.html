@@ -1,0 +1,6 @@
+@if (events$ | async; as events) {
+@for (event of events.data; track event.id) {
+<div class="IntraBlockPadding"></div>
+<app-event-block [eventData]="event"></app-event-block>
+}
+}
