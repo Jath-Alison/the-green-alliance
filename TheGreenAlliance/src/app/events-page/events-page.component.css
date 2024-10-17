@@ -5,10 +5,6 @@
     flex-direction: row;
 }
 
-.padding{
-    
-}
-
 .content {
     flex: 0 0 100%;
     width: 100%;
@@ -20,11 +16,12 @@
 .title{
     text-align: center;
     margin: 0px;
+    padding: 5px;
 }
 
 @media not screen and (max-width: 500px) {
     .title{
         position: sticky;
-        top: 10px;
+        top: 56px;
     }
 }
