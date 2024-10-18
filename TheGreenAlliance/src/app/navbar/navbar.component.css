@@ -1,0 +1,20 @@
+.center{
+    position: sticky;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    /* flex-direction: row; */
+}
+
+.content {
+    width: 100%;
+    display: block;
+    overflow: auto;
+}
+
+@media not screen and (max-width: 768px) {
+    .contentPadding{
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+}
