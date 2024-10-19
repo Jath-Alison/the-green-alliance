@@ -39,6 +39,7 @@ export class TeamsComponent {
   }
 
   reload(){
+    this.PageFilterInt = 1;
     this.ProgramFilterInt = parseInt(this.ProgramFilter); 
     this.RegisteredFilterBool = parseInt(this.RegisteredFilter) == 1;
 
