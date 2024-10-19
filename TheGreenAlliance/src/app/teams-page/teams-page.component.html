@@ -1,0 +1,55 @@
+<div class="center bg-body-tertiary">
+    <div class="content">
+        <div>
+            <div class="title bg-body-tertiary">
+                <h1>Events</h1>
+                <div ngbDropdown class="d-inline-block">
+                    <button type="button" class="btn btn-outline-primary"
+                        id="dropdownBasic1" ngbDropdownToggle>
+                        Program
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        @for (program of Programs; track $index) {
+                        <button ngbDropdownItem
+                            (click)="setProgramFilter(program.id);">
+                            @if (program.id === ProgramFilterID) {
+                            ->
+                            }
+                            {{program.name}}
+                        </button>
+                        }
+                    </div>
+                </div>
+                @if (OnlyRegistered == 1){
+                <button type="button" class="btn btn-primary"
+                    data-toggle="button" aria-pressed="false" autocomplete="off"
+                    id="dropdownBasic1"
+                    (click)="OnlyRegistered = OnlyRegistered*-1; ">
+                    Registered?
+                </button>
+                } @else{
+                <button type="button" class="btn btn-outline-primary"
+                    data-toggle="button" aria-pressed="false" autocomplete="off"
+                    id="dropdownBasic1"
+                    (click)="OnlyRegistered = OnlyRegistered*-1; ">
+                    Registered?
+                </button>
+                }
+                <div ngbDropdown class="d-inline-block">
+
+                    <label for="TeamNumber"><input
+                            class="btn btn-outline-primary"
+                            style="width: max-content;"
+                            id="TeamNumber" type="text" placeholder="TeamNumber"
+                            [(ngModel)]="TeamNumberFilter" />
+                    </label>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-teams
+    ProgramFilter="{{ProgramFilterID}}"
+    TeamNumber="{{TeamNumberFilter}}"
+    RegisteredFilter="{{OnlyRegistered}}"></app-teams>

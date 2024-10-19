@@ -1,0 +1,17 @@
+.IntraBlockPadding {
+    padding: 5px;
+}
+
+
+@media not screen and (max-width: 700px) {
+    .content{
+        width: 70%;
+    }
+}
+
+.center{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
