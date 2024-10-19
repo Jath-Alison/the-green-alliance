@@ -3,8 +3,55 @@
         <div>
             <div class="title bg-body-tertiary">
                 <h1>Events</h1>
+                <div ngbDropdown class="d-inline-block">
+                    <button type="button" class="btn btn-outline-primary"
+                        id="dropdownBasic1" ngbDropdownToggle>
+                        Program
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        @for (program of Programs; track $index) {
+                        <button ngbDropdownItem
+                            (click)="setProgramFilter(program.id);">
+                            @if (program.id === ProgramFilterID) {
+                            ->
+                            }
+                            {{program.name}}
+                        </button>
+                        }
+                    </div>
+                </div>
+                <div ngbDropdown class="d-inline-block">
+                    <button type="button" class="btn btn-outline-primary"
+                        id="dropdownBasic1" ngbDropdownToggle>
+                        Season
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        @if (Seasons | async; as s) {
+                        @for (season of s.data; track $index) {
+                        <button ngbDropdownItem
+                            (click)="setSeasonFilter(season.id)">
+                            @if (season.id === SeasonFilterID) {
+                            ->
+                            }
+                            {{season.name}}
+                        </button>
+                        }
+                        }
+                    </div>
+                </div>
+                <div ngbDropdown class="d-inline-block">
+
+                    <label for="Region"><input class="btn btn-outline-primary" style="width: max-content;"
+                            id="Region" type="text" placeholder="Region"
+                            [(ngModel)]="RegionFilterName" />
+                    </label>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
-<app-events></app-events>
+<app-events
+    SeasonFilter="{{SeasonFilterID}}"
+    ProgramFilter="{{ProgramFilterID}}"
+    RegionFilter="{{RegionFilterName}}"></app-events>

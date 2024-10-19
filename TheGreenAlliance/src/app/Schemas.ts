@@ -56,6 +56,27 @@ export interface Events {
     name: string
     code: string
   }
+
+  export interface Seasons {
+    meta: Meta
+    data: SeasonData[]
+  }
+  
+  export interface SeasonData {
+    id: number
+    name: string
+    program: Program
+    start: string
+    end: string
+    years_start: number
+    years_end: number
+  }
+  
+  export interface Program {
+    id: number
+    name: string
+    code: string
+  }
   
   export interface Program {
     id: number

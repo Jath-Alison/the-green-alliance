@@ -1,10 +1,50 @@
 @if (events$ | async; as events) {
 <div class="center">
+    <div class="center" style="padding: 5px;">
+        <div
+            style="justify-content: center; display: flex; margin-bottom: 5px;">
+            Page: {{events.meta.current_page }}/{{events.meta.last_page }}</div>
+        <div
+            style="justify-content: center; display: flex; flex-direction:row;">
+            @if ( events.meta.current_page > 1 ){
+            <button type="button" class="btn btn-outline-primary"
+                (click)="reloadWithPage(-1);">
+                <
+            </button>
+            }
+            @if ( events.meta.current_page < events.meta.last_page){
+            <button type="button" class="btn btn-outline-primary"
+                (click)="reloadWithPage(1);">
+                >
+            </button>
+            }
+        </div>
+    </div>
     <div class="content">
         @for (event of events.data; track event.id) {
-            <div class="IntraBlockPadding"></div>
-            <app-event-block [eventData]="event"></app-event-block>
+        <div class="IntraBlockPadding"></div>
+        <app-event-block [eventData]="event"></app-event-block>
         }
+    </div>
+    <div class="center" style="padding: 5px;">
+        <div
+            style="justify-content: center; display: flex; margin-bottom: 5px;">
+            Page: {{events.meta.current_page }}/{{events.meta.last_page }}</div>
+        <div
+            style="justify-content: center; display: flex; flex-direction:row;">
+            @if ( events.meta.current_page > 1 ){
+            <button type="button" class="btn btn-outline-primary"
+                (click)="reloadWithPage(-1);">
+                <
+            </button>
+            }
+            @if ( events.meta.current_page < events.meta.last_page){
+            <button type="button" class="btn btn-outline-primary"
+                (click)="reloadWithPage(1);">
+                >
+            </button>
+            }
+        </div>
     </div>
 </div>
 }@else {
