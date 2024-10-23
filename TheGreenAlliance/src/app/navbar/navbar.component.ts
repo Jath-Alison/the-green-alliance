@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterLink } from '@angular/router';
 
@@ -10,5 +10,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  @Input() title: string = "";
   isMenuCollapsed : boolean = true;
 }
