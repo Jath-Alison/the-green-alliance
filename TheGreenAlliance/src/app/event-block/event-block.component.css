@@ -13,12 +13,12 @@
     outline: 3px solid #487975;
 }
 
-.EventBlock:active{
+.EventBlock:active {
     background: #487975;
     outline: 3px solid #2c4c48;
 }
 
-.title-row{
+.title-row {
     display: flex;
     flex-direction: row;
 
@@ -26,7 +26,7 @@
     padding: 5px;
 }
 
-.info-row{
+.info-row {
     display: flex;
     flex-direction: row;
 
@@ -34,7 +34,7 @@
     padding: 5px;
 }
 
-.Name{
+.Name {
     flex: 0 0 80%;
     max-width: 80%;
     /* height: 30%; */
@@ -46,7 +46,7 @@
     font-size: 1.25em;
 }
 
-.Location{
+.Location {
     flex: 0 0 60%;
     max-width: 60%;
     /* height: 30%; */
@@ -58,14 +58,25 @@
     font-size: 1em;
 }
 
-.Star{
+.Star {
     font-size: 1em;
+    display:flex;
     flex: 0 0 10%;
     max-width: 10%;
-    float: right;
+    padding-right: 20px;
+    justify-content: center;
 }
 
-.Dates{
+.bi::before {
+    display: inline-block;
+    content: "";
+    vertical-align: -.125em;
+    background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' clip-rule='evenodd'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+}
+
+.Dates {
     flex: 0 0 40%;
     max-width: 40%;
     /* height: 30%; */
@@ -78,7 +89,7 @@
     font-size: 1em;
 }
 
-.padding{
+.padding {
     flex: 8 8 30%;
     max-width: 100%;
     min-width: 0%;

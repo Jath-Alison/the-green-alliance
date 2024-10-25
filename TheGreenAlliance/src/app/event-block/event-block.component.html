@@ -5,7 +5,12 @@
         </div>
         <div class="padding"></div>
         <div class="Star">
-            {{eventData.awards_finalized}}
+            @if(isStarred){
+                <i class="bi-star-fill" style="font-size: 2rem; color: black;" (click)="toggleStar($event)"></i>
+            }@else{
+            <i class="bi-star" style="font-size: 2rem; color: black;" (click)="toggleStar($event)"></i>
+            }
+            
         </div>
     </div>
     <div class="info-row">

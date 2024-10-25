@@ -14,14 +14,17 @@
 
     height: 30%;
     padding: 5px;
+    padding-bottom: 0px;
 }
 
 .info-row{
     display: flex;
     flex-direction: row;
-
+    
     height: 30%;
     padding: 5px;
+    padding-top: 0px;
+    
 }
 
 .Name{
@@ -37,9 +40,10 @@
 }
 
 .Location{
-    flex: 0 0 60%;
+    flex: 1 1 30%;
     max-width: 60%;
     /* height: 30%; */
+    width: fit-content;
 
     display: flex;
     justify-content: left;
@@ -56,10 +60,11 @@
 }
 
 .Dates{
-    flex: 0 0 40%;
-    max-width: 40%;
+    flex: 1 1 40%;
+    max-width: 80%;
     /* height: 30%; */
-    padding-right: 20px;
+    padding-right: 10px;
+    width: fit-content;
 
     display: flex;
     justify-content: right;

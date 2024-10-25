@@ -10,7 +10,12 @@ import { Team } from '../Schemas';
 })
 export class TeamBlockComponent {
   @Input() teamData!: Team;
+  @Input() isStarred: boolean = false;
 
   ngOnInit(): void {
+  }
+  toggleStar(event: Event) {
+    event.stopPropagation();
+    this.isStarred = !this.isStarred;
   }
 }

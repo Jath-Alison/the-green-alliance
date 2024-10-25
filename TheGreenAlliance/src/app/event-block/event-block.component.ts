@@ -10,6 +10,7 @@ import { EventData } from '../Schemas';
 })
 export class EventBlockComponent {
   @Input() eventData!: EventData;
+  @Input() isStarred: boolean = false;
 
   date! : string;
 
@@ -22,5 +23,10 @@ export class EventBlockComponent {
 
   emitEventBlockClicked(){
     this.eventClicked.emit(this.eventData.id);
+  }
+
+  toggleStar(event: Event){
+    event.stopPropagation();
+    this.isStarred = !this.isStarred;
   }
 }
