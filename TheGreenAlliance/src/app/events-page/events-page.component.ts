@@ -6,6 +6,7 @@ import { RobotEventsAPI } from '../RobotEventsAPI';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events-page',

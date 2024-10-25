@@ -1,0 +1,38 @@
+.center{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.content {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 700px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentW {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 1000px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.title{
+    text-align: center;
+    margin: 0px;
+    padding: 5px;
+}
+
+@media not screen and (max-width: 500px) {
+    .title{
+        position: sticky;
+        top: 56px;
+    }
+}

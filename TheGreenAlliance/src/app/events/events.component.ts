@@ -6,6 +6,7 @@ import { RobotEventsAPI } from '../RobotEventsAPI';
 import { Events } from '../Schemas';
 import { EventBlockComponent } from '../event-block/event-block.component';
 import { LoadingComponent } from '../loading/loading.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -23,7 +24,7 @@ export class EventsComponent {
   SeasonFilterInt: number = 0;
   PageFilterInt: number = 1;
 
-  constructor(private api: RobotEventsAPI) { }
+  constructor(private api: RobotEventsAPI, private router: Router) { }
   events$!: Observable<Events>;
 
   ngOnInit(): void {
@@ -66,5 +67,9 @@ export class EventsComponent {
       RegionName: this.RegionFilter,
       Page: this.PageFilterInt
     })
+  }
+
+  sendToPage(event: any){
+    this.router.navigate(['/event', event]);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { EventData } from '../Schemas';
 
 @Component({
@@ -16,5 +16,11 @@ export class EventBlockComponent {
   ngOnInit(): void {
     const d = new Date(Date.parse(this.eventData.start));
     this.date = d.toDateString();
+  }
+
+  eventClicked = output<number>();
+
+  emitEventBlockClicked(){
+    this.eventClicked.emit(this.eventData.id);
   }
 }

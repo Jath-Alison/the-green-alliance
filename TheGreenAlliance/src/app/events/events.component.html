@@ -23,7 +23,7 @@
     <div class="content">
         @for (event of events.data; track event.id) {
         <div class="IntraBlockPadding"></div>
-        <app-event-block [eventData]="event"></app-event-block>
+        <app-event-block [eventData]="event" (eventClicked)="sendToPage($event)"></app-event-block>
         }
     </div>
     <div class="center" style="padding: 5px;">
