@@ -36,3 +36,87 @@
         top: 56px;
     }
 }
+
+.EventInfoItem{
+    padding: 5px;
+}
+
+.TeamInfoBlock{
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: #c2c2c2;
+}
+
+.splitContent{
+    display: flex;
+    flex-direction: row;
+}
+
+.leftContent{
+    display: flex;
+    flex-direction: column;
+    
+    width: 30%;
+}
+
+.rightContent{
+    display: flex;
+    flex-direction: column;
+    
+    width: 70%;
+}
+
+.MatchInfoBlock{
+    padding: 10px;
+    margin: 5px;
+    background-color: rgb(140, 228, 53);
+    border-radius: 10px;
+
+
+    display: flex;
+    flex-direction: row;
+}
+
+.MatchInfoTitle{
+    display: flex;
+    flex-direction: column;
+
+    flex: 0 0 25%;
+    max-width: fit-content;
+    
+    padding: 5px;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+
+    /* background-color: rgb(24, 105, 172); */
+}
+
+.MatchInfoLocation{
+    display: flex;
+    flex-direction: column;
+
+    flex: 1 2 50%;
+
+    max-width: fit-content;
+    padding: 10px;
+    
+    justify-content: center;
+    align-content: center;
+
+    /* background-color: rgb(180, 88, 88); */
+}
+.MatchInfoLocationItem{
+    text-align: center;
+}
+
+.MatchInfoTeams{
+    flex: 2 1 50%;
+
+    padding: 10px;
+
+    display: grid;
+	grid-template-rows: 50% 50%;
+	grid-template-columns: 40% 40% 20%;
+}

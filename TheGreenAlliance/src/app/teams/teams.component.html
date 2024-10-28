@@ -23,7 +23,7 @@
     <div class="content">
         @for (team of teams.data; track team.id) {
         <div class="IntraBlockPadding"></div>
-        <app-team-block [teamData]="team"></app-team-block>
+        <app-team-block [teamData]="team" (teamClicked)="sendToPage($event)"></app-team-block>
         }
     </div>
     <div class="center" style="padding: 5px;">

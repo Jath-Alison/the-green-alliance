@@ -123,3 +123,67 @@ export interface Events {
     order: number
   }
   
+  export interface Matches {
+    meta: Meta
+    data: Match[]
+  }
+  
+  export interface Meta {
+    current_page: number
+    first_page_url: string
+    from: number
+    last_page: number
+    last_page_url: string
+    next_page_url: string
+    path: string
+    per_page: number
+    prev_page_url: string
+    to: number
+    total: number
+  }
+  
+  export interface Match {
+    id: number
+    event: Event
+    division: Division
+    round: number
+    instance: number
+    matchnum: number
+    scheduled: string
+    started: string
+    field: string
+    scored: boolean
+    name: string
+    alliances: Alliance[]
+    updated_at: string
+  }
+  
+  export interface Event {
+    id: number
+    name: string
+    code: string
+  }
+  
+  export interface Division {
+    id: number
+    name: string
+    code: any
+  }
+  
+  export interface Alliance {
+    color: string
+    score: number
+    teams: Team[]
+  }
+  
+  export interface Team {
+    team: Team2
+    sitting: boolean
+  }
+  
+  export interface Team2 {
+    id: number
+    name: string
+    code: any
+  }
+  

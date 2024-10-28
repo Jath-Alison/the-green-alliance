@@ -8,6 +8,16 @@
     flex-direction: column;
 }
 
+.TeamBlock:hover {
+    background: #70c7c0;
+    outline: 3px solid #487975;
+}
+
+.TeamBlock:active {
+    background: #487975;
+    outline: 3px solid #2c4c48;
+}
+
 .title-row{
     display: flex;
     flex-direction: row;

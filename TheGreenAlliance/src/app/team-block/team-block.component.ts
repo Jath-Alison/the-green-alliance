@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { Team } from '../Schemas';
 
 @Component({
@@ -17,5 +17,11 @@ export class TeamBlockComponent {
   toggleStar(event: Event) {
     event.stopPropagation();
     this.isStarred = !this.isStarred;
+  }
+
+  teamClicked = output<number>();
+
+  emitTeamBlockClicked(){
+    this.teamClicked.emit(this.teamData.id);
   }
 }

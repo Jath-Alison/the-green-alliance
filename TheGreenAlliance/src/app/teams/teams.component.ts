@@ -5,6 +5,7 @@ import { TeamBlockComponent } from '../team-block/team-block.component';
 import { Teams } from '../Schemas';
 import { RobotEventsAPI } from '../RobotEventsAPI';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-teams',
@@ -15,7 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class TeamsComponent {
 
-  constructor(private api: RobotEventsAPI) { }
+  constructor(private api: RobotEventsAPI, private router: Router) { }
   teams$!: Observable<Teams>;
 
   @Input() ProgramFilter: string = "";
@@ -61,5 +62,9 @@ export class TeamsComponent {
       RegisteredOnly: this.RegisteredFilterBool,
       Page: this.PageFilterInt
     });
+  }
+
+  sendToPage(event: any){
+    this.router.navigate(['/team', event]);
   }
 }
