@@ -5,18 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { subscribe } from 'diagnostics_channel';
 import { response } from 'express';
-
-interface loginResponse {
-  status:{
-    error: boolean,
-    error_desc: string,
-  }
-  data:{
-    userid: number,
-    username: string,
-    password: string,
-  }
-}
+import { loginResponse } from '../Schemas';
+import { DatabaseAPI } from '../DatabaseAPI';
 
 @Component({
   selector: 'app-login-button',
@@ -27,7 +17,7 @@ interface loginResponse {
 })
 export class LoginButtonComponent {
 
-  constructor(private http: HttpClient) { }
+  constructor(private databaseAPI: DatabaseAPI) { }
 
   private modalService = inject(NgbModal);
   closeResult = '';
@@ -37,23 +27,33 @@ export class LoginButtonComponent {
   password: string = '';
   error: string = '';
 
+  usernameDisplay:string = ''; 
+
   loginData!: loginResponse;
+
+  ngOnLoad(){
+    this.usernameDisplay = this.databaseAPI.getUsername();
+  }
 
   onSubmit() {
     // Implement your login logic here
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
+    // console.log('Username:', this.username);
+    // console.log('Password:', this.password);
     // Add authentication logic and navigate to the next page upon successful login
 
     let url = `http://localhost:3000/?cmd=login&username=${this.username}&password=${this.password}`;
 
-    this.http.get<loginResponse>(url).subscribe(response => {
-      if(response.status.error){
+    this.databaseAPI.login(this.username, this.password).subscribe(response => {
+      if (response.status.error) {
         console.log('Error:', response.status.error_desc);
         this.error = response.status.error_desc;
-      }else{
+      } else {
         this.loggedIn = true;
         this.loginData = response;
+        this.databaseAPI.setUserID(this.loginData.data.userid);
+        this.databaseAPI.setUsername(this.loginData.data.username);
+        this.usernameDisplay = this.databaseAPI.getUsername();
+        this.modalService.dismissAll();
       }
     });
   }
@@ -78,5 +78,12 @@ export class LoginButtonComponent {
       default:
         return `with: ${reason}`;
     }
+  }
+
+  Reload() {
+    console.log(this.loginData);
+    console.log(this.loginData.data.password);
+    console.log(this.loginData.data.userid);
+    console.log(this.loginData.data);
   }
 }

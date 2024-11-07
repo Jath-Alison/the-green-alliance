@@ -75,19 +75,64 @@
                                 {{match.name}}
                             </div>
                             <div class="MatchInfoLocation">
-                                <div class="MatchInfoLocationItem">{{convertToTime(match.scheduled)}}</div>
-                                <div class="MatchInfoLocationItem">{{match.field}}</div>
+                                <div
+                                    class="MatchInfoLocationItem">{{convertToTime(match.scheduled)}}</div>
+                                <div
+                                    class="MatchInfoLocationItem">{{match.field}}</div>
                             </div>
                             <div class="MatchInfoTeams">
-                                <div style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:red">{{match.alliances[0].teams[0].team.name}}</div>
-                                <div style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:red">{{match.alliances[0].teams[1].team.name}}</div>
-                                <div style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:red">{{match.alliances[0].score}}</div>
-                                <div style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:blue">{{match.alliances[1].teams[0].team.name}}</div>
-                                <div style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:blue">{{match.alliances[1].teams[1].team.name}}</div>
-                                <div style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:blue">{{match.alliances[1].score}}</div>
+                                <div
+                                    style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:red">{{match.alliances[0].teams[0].team.name}}</div>
+                                <div
+                                    style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:red">{{match.alliances[0].teams[1].team.name}}</div>
+                                @if(match.alliances[0].score >
+                                match.alliances[1].score){
+                                <div
+                                    style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:red; background-color:red">{{match.alliances[0].score}}</div>
+                                }@else {
+                                <div
+                                    style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:red">{{match.alliances[0].score}}</div>
+                                }
+                                <div
+                                    style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:blue">{{match.alliances[1].teams[0].team.name}}</div>
+                                <div
+                                    style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:blue">{{match.alliances[1].teams[1].team.name}}</div>
+                                @if(match.alliances[1].score >
+                                match.alliances[0].score){
+                                <div
+                                    style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:blue; background-color:blue">{{match.alliances[1].score}}</div>
+                                }@else {
+                                <div
+                                    style="align-content: center; padding: 5px; text-align: center; border-style: solid; border-color:blue">{{match.alliances[1].score}}</div>
+                                }
                             </div>
                         </div>
                         }
+                        }
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="4">
+                <button ngbNavLink>Criteria</button>
+                <ng-template ngbNavContent>
+                    <div>
+                        @if (CriteriaConfigs != null){
+                        @for (criteria of CriteriaConfigs.data; track $index) {
+                        <input type="text" class="form-control"
+                            [(ngModel)]="criteria.criteria_name" />
+                        <input type="number" class="form-control"
+                            [(ngModel)]="criteria.criteria_weight" />
+                        <hr>
+                        }
+                        <hr>
+                        <button class="btn btn-outline-secondary"
+                            (click)="addCriteriaConfig()"> New Criteria
+                        </button>
+                        <button class="btn btn-outline-secondary"
+                            (click)="sendCriteriaConfig()"> Save Criteria
+                        </button>
+                        }@else {
+                        <app-login-button></app-login-button>
                         }
                     </div>
                 </ng-template>

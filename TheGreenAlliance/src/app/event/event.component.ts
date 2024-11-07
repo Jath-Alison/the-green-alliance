@@ -5,21 +5,24 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { LoadingComponent } from '../loading/loading.component';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { match } from 'assert';
+import { DatabaseAPI } from '../DatabaseAPI';
+import { criteriaConfigResponse, criteriaConfig } from '../Schemas';
+import { LoginButtonComponent } from '../login-button/login-button.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-event',
   standalone: true,
-  imports: [AsyncPipe, LoadingComponent, NgbNavModule],
+  imports: [AsyncPipe, LoadingComponent, NgbNavModule, LoginButtonComponent, FormsModule],
   templateUrl: './event.component.html',
   styleUrl: './event.component.css'
 })
 export class EventComponent {
 
-  constructor(private api: RobotEventsAPI) { }
+  constructor(private api: RobotEventsAPI, private db: DatabaseAPI) { }
 
   EventInfo!: Observable<EventData>;
-  eventData!:EventData;
+  eventData!: EventData;
 
   Teams!: Teams;
   Matches!: Matches;
@@ -27,20 +30,51 @@ export class EventComponent {
   Title: string = "Loading...";
   Subtitle: string = "Loading...";
 
+  CriteriaConfigs!: criteriaConfigResponse;
+
+  sendCriteriaConfig() {
+    this.db.setCriteriaConfig(this.CriteriaConfigs);
+  }
+  getCriteriaConfig() {
+    if (this.eventData != null) {
+      if (this.db.getUserID() != -1 && this.eventData) {
+        this.db.getCriteriaConfig(this.db.getUserID(), this.eventData.id).subscribe(criteriaConfigs => {
+          this.CriteriaConfigs = criteriaConfigs;
+          // console.log(criteriaConfigs);
+        });
+      }
+    }
+  }
+
+  addCriteriaConfig() {
+    var temp: criteriaConfig = {
+      criteria_id: 0,
+      user_id: this.db.getUserID(),
+      event_id: this.eventData.id,
+      criteria_name: "New Criteria",
+      criteria_weight: 0
+    };
+    this.db.addCriteriaConfig(temp).subscribe(result =>{
+      // this.getCriteriaConfig();
+    });
+    this.CriteriaConfigs.data.push(temp);
+  }
+  removeCriteria(id:number){}
+
   @Input() set id(eventID: number) {
     this.EventInfo = this.api.getEventByID(eventID);
 
     this.EventInfo.subscribe(event => {
-      if(event.name.indexOf("-") > 0){
-        this.Title = event.name.substring(0,event.name.indexOf("-") - 1);
-        this.Subtitle = event.name.substring(event.name.indexOf("-") + 1,event.name.length);
-      }else if(event.name.indexOf("[") > 0){
-        this.Title = event.name.substring(0,event.name.indexOf("["));
-        this.Subtitle = event.name.substring(event.name.indexOf("[") + 1,event.name.indexOf("]"));
-      }else if(event.name.indexOf("(") > 0){
-        this.Title = event.name.substring(0,event.name.indexOf("("));
-        this.Subtitle = event.name.substring(event.name.indexOf("(") + 1,event.name.indexOf(")"));
-      }else{
+      if (event.name.indexOf("-") > 0) {
+        this.Title = event.name.substring(0, event.name.indexOf("-") - 1);
+        this.Subtitle = event.name.substring(event.name.indexOf("-") + 1, event.name.length);
+      } else if (event.name.indexOf("[") > 0) {
+        this.Title = event.name.substring(0, event.name.indexOf("["));
+        this.Subtitle = event.name.substring(event.name.indexOf("[") + 1, event.name.indexOf("]"));
+      } else if (event.name.indexOf("(") > 0) {
+        this.Title = event.name.substring(0, event.name.indexOf("("));
+        this.Subtitle = event.name.substring(event.name.indexOf("(") + 1, event.name.indexOf(")"));
+      } else {
         this.Title = event.name;
         this.Subtitle = "";
       }
@@ -51,13 +85,15 @@ export class EventComponent {
       this.EndDate = d2.toDateString();
 
       this.eventData = event;
+
+      this.getCriteriaConfig();
     });
 
     this.api.getTeamsByEventId(eventID).subscribe(teams => {
       this.Teams = teams;
     });
 
-    this.api.getMatches(eventID, 1).subscribe(matches =>{
+    this.api.getMatches(eventID, 1).subscribe(matches => {
       // console.log(matches);
       this.Matches = matches;
     });
