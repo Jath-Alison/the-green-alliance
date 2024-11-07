@@ -6,7 +6,13 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" [routerLink]="'.'">{{title}}</a>
 
-                    <app-login-button></app-login-button>
+                    @if(username == ''){
+                    <button class="btn btn-outline-primary"
+                        [routerLink]="'/login'"
+                        (click)="isMenuCollapsed = true">Login</button>
+                    }@else{
+                        <button class="btn btn-outline-primary">{{username}}</button>
+                    }
 
                     <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
                     <button class="navbar-toggler" type="button"

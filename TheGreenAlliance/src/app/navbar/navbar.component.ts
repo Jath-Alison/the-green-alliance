@@ -13,5 +13,6 @@ import { LoginButtonComponent } from '../login-button/login-button.component';
 })
 export class NavbarComponent {
   @Input() title: string = "";
+  @Input() username: string = "";
   isMenuCollapsed : boolean = true;
 }

@@ -5,12 +5,14 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EventComponent } from './event/event.component';
 import { TeamComponent } from './team/team.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 export const routes: Routes = [
     { path: 'events', component: EventsPageComponent},
     { path: 'teams', component: TeamsPageComponent },
     { path: 'event/:id', component: EventComponent},
     { path: 'team/:id', component: TeamComponent},
+    { path: 'login', component: LoginPageComponent},
     { path: '', component: HomePageComponent },
     { path: '**', component: PageNotFoundComponent },
 ];

@@ -31,7 +31,7 @@ export class LoginButtonComponent {
 
   loginData!: loginResponse;
 
-  ngOnLoad(){
+  ngOnInit(){
     this.usernameDisplay = this.databaseAPI.getUsername();
   }
 
@@ -81,9 +81,9 @@ export class LoginButtonComponent {
   }
 
   Reload() {
-    console.log(this.loginData);
-    console.log(this.loginData.data.password);
-    console.log(this.loginData.data.userid);
-    console.log(this.loginData.data);
+    // console.log(this.loginData);
+    // console.log(this.loginData.data.password);
+    // console.log(this.loginData.data.userid);
+    // console.log(this.loginData.data);
   }
 }

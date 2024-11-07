@@ -1,40 +1,42 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { criteriaConfig, criteriaConfigResponse, loginResponse } from './Schemas'
+import { criteriaConfig, criteriaConfigResponse, loginResponse, TeamCriteriaValue, TeamCriteriaValuesResponse } from './Schemas'
+
+let numArr :number[] = [];
+
+export const userData = {
+  userID : -1,
+  username : "",
+  favoriteTeams : numArr,
+};
 
 @Injectable({ providedIn: 'root' })
 export class DatabaseAPI {
 
   constructor(private http: HttpClient) { }
 
-  userID = -1;
-  username = "";
-
-  favoriteTeams:number[] = [];
-
   setUsername(name: string): void {
-    this.username = name;
+    userData.username = name;
   }
   getUsername(): string {
-    return this.username;
+    return userData.username;
   }
 
   setUserID(id: number): void {
-    this.userID = id;
+    userData.userID = id;
   }
   getUserID(): number {
-    return this.userID;
+    return userData.userID;
   }
 
   getFavoriteTeams(){
-    return this.favoriteTeams;
-  }
+    return DatabaseAPI  }
   setFavoriteTeam(id:number, favorite:boolean){
-    if(favorite && this.favoriteTeams.indexOf(id) == -1){
-      this.favoriteTeams.push(id);
-    }else if(!favorite && this.favoriteTeams.indexOf(id) != -1){
-      this.favoriteTeams = this.favoriteTeams.filter((ele, ind) => ele != id);
+    if(favorite && userData.favoriteTeams.indexOf(id) == -1){
+      userData.favoriteTeams.push(id);
+    }else if(!favorite && userData.favoriteTeams.indexOf(id) != -1){
+      userData.favoriteTeams = userData.favoriteTeams.filter((ele, ind) => ele != id);
     }
   }
 
@@ -64,6 +66,21 @@ export class DatabaseAPI {
   addCriteriaConfig(singleCriteriaConfig: criteriaConfig) : Observable<criteriaConfigResponse>{
     let url = `http://localhost:3000/?cmd=addCriteriaConfig`;
     let a: Observable<criteriaConfigResponse> = this.http.post<criteriaConfigResponse>(url, singleCriteriaConfig, {
+      // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
+    });
+    return a;
+  }
+
+  setCriteria(teamCriteriaValues: TeamCriteriaValuesResponse){
+    let url = `http://localhost:3000/?cmd=setCriteriaEntries`;
+    let a: Observable<TeamCriteriaValuesResponse> = this.http.post<TeamCriteriaValuesResponse>(url, teamCriteriaValues, {
+      // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
+    });
+    return a;
+  }
+  addCriteria(teamCriteriaValues: TeamCriteriaValue){
+    let url = `http://localhost:3000/?cmd=addCriteriaEntry`;
+    let a: Observable<TeamCriteriaValuesResponse> = this.http.post<TeamCriteriaValuesResponse>(url, teamCriteriaValues, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
     });
     return a;

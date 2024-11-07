@@ -199,7 +199,7 @@ export interface loginResponse {
   }
 };
 
-export interface criteriaConfig{
+export interface criteriaConfig {
   criteria_id: number,
   user_id: number,
   event_id: number,
@@ -207,10 +207,25 @@ export interface criteriaConfig{
   criteria_weight: number,
 }
 
-export interface criteriaConfigResponse{
-    status: {
-        error: boolean,
-        error_desc: string
-    },
-    data: criteriaConfig[]
+export interface criteriaConfigResponse {
+  status: {
+    error: boolean,
+    error_desc: string
+  },
+  data: criteriaConfig[]
+}
+
+export interface TeamCriteriaValue{
+  entry_id: number,
+  team_id: number,
+  criteria_id: number,
+  criteria_value: number,
+}
+
+export interface TeamCriteriaValuesResponse {
+  status: {
+    error: boolean,
+    error_desc: string
+  },
+  data: criteriaConfig[]
 }

@@ -179,6 +179,6 @@
   
 </style>
 
-<app-navbar title="{{title}}"></app-navbar>
+<app-navbar title="{{title}}" username="{{username}}"></app-navbar>
 
-<router-outlet />
+<router-outlet (userIdLoggedIn)="reloadForUsername($event)"></router-outlet>

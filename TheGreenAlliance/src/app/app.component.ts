@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Event, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { EventsComponent } from './events/events.component';
@@ -16,4 +16,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 })
 export class AppComponent {
   title = 'The Green Alliance';
+  username = '';
+
+  reloadForUsername(event: any){
+    this.username = event;
+  }
 }
