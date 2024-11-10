@@ -1,13 +1,6 @@
 <div class="center">
     <div class="content" style="padding:15px">
-        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-            <h1>Login</h1>
-            <div class="mt-3" style="float: right;">
-                <button class="btn btn-outline-secondary"
-                    [routerLink]="['/signup']">Sign Up</button>
-            </div>
-        </div>
-
+        <h1>Sign Up</h1>
         <hr>
         <form (ngSubmit)="onSubmit()">
             <div class>
@@ -17,8 +10,7 @@
                             id="basic-addon1">Username</span>
                     </div>
                     <input type="text" name="username" class="form-control"
-                        id="username" [(ngModel)]="username"
-                        aria-label="username"
+                        id="username" [(ngModel)]="username" aria-label="username"
                         aria-describedby="basic-addon1">
                 </div>
                 <div class="input-group mb-3">
@@ -27,8 +19,7 @@
                             id="basic-addon1">Password</span>
                     </div>
                     <input type="password" name="password" class="form-control"
-                        id="password" [(ngModel)]="password"
-                        aria-label="password"
+                        id="password" [(ngModel)]="password" aria-label="password"
                         aria-describedby="basic-addon1">
                 </div>
                 @if(error != ""){

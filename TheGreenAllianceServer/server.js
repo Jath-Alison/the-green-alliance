@@ -81,7 +81,7 @@ const server = createServer((req, res) => {
                     var out = {
                         status: {
                             error: true,
-                            error_desc: "invalid username or password"
+                            error_desc: "Invalid username or password"
                         },
                         data: {}
 
@@ -120,75 +120,75 @@ const server = createServer((req, res) => {
                 res.end(JSON.stringify(out));
 
             });
-        }else if (q.cmd == "getTeamCriteria") {
+        } else if (q.cmd == "getTeamCriteria") {
 
             con.query(`Select * From criteria_entries
                 Inner Join criteria_config On criteria_config.criteria_id = criteria_entries.criteria_id
                 Where team_id=${q.teamid} and user_id=${q.userid} and event_id=${q.eventid}`,
                 function (err, result) {
-                if (err) throw err;
+                    if (err) throw err;
 
-                var error_out = false;
-                var error_desc_out = "";
-                var data_out = [];
+                    var error_out = false;
+                    var error_desc_out = "";
+                    var data_out = [];
 
-                if (result.length == 0) {
-                    error_out = true;
-                    error_desc_out = "No Criteria Values Found";
-                } else if (result.length > 0) {
-                    data_out = result;
-                }
+                    if (result.length == 0) {
+                        error_out = true;
+                        error_desc_out = "No Criteria Values Found";
+                    } else if (result.length > 0) {
+                        data_out = result;
+                    }
 
-                res.statusCode = 200;
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.setHeader('Content-Type', 'application/json');
+                    res.statusCode = 200;
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.setHeader('Content-Type', 'application/json');
 
-                var out = {
-                    status: {
-                        error: error_out,
-                        error_desc: error_desc_out
-                    },
-                    data: data_out
-                };
+                    var out = {
+                        status: {
+                            error: error_out,
+                            error_desc: error_desc_out
+                        },
+                        data: data_out
+                    };
 
-                res.end(JSON.stringify(out));
+                    res.end(JSON.stringify(out));
 
-            });
-        }else if (q.cmd == "getTeamCriteriaScore"){
+                });
+        } else if (q.cmd == "getTeamCriteriaScore") {
             con.query(`Select team_id, Sum(criteria_weight * criteria_value) as score From criteria_entries
                 Inner Join criteria_config On criteria_config.criteria_id = criteria_entries.criteria_id
                 Where user_id=${q.userid} and event_id=${q.eventid}
                 Group by team_id
                 Order by score DESC;`,
                 function (err, result) {
-                if (err) throw err;
+                    if (err) throw err;
 
-                var error_out = false;
-                var error_desc_out = "";
-                var data_out = [];
+                    var error_out = false;
+                    var error_desc_out = "";
+                    var data_out = [];
 
-                if (result.length == 0) {
-                    error_out = true;
-                    error_desc_out = "No Criteria Scores Found";
-                } else if (result.length > 0) {
-                    data_out = result;
-                }
+                    if (result.length == 0) {
+                        error_out = true;
+                        error_desc_out = "No Criteria Scores Found";
+                    } else if (result.length > 0) {
+                        data_out = result;
+                    }
 
-                res.statusCode = 200;
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.setHeader('Content-Type', 'application/json');
+                    res.statusCode = 200;
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.setHeader('Content-Type', 'application/json');
 
-                var out = {
-                    status: {
-                        error: error_out,
-                        error_desc: error_desc_out
-                    },
-                    data: data_out
-                };
+                    var out = {
+                        status: {
+                            error: error_out,
+                            error_desc: error_desc_out
+                        },
+                        data: data_out
+                    };
 
-                res.end(JSON.stringify(out));
+                    res.end(JSON.stringify(out));
 
-            });
+                });
         } else {
             res.statusCode = 404;
             res.setHeader('Content-Type', 'text/html');
@@ -196,7 +196,85 @@ const server = createServer((req, res) => {
         }
     } else if (req.method == "POST") {
         console.log("Post Received");
-        if (q.cmd == "setCriteriaConfig") {
+        if (q.cmd == "createLogin") {
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk.toString();
+            });
+            req.on('end', () => {
+                // console.log('POST data:', data);
+
+
+                let loginData = JSON.parse(data);
+                let queryString = '';
+
+                let fail = false;
+
+                con.query(`Select * From user where username='${loginData.username}'`, function (err, result) {
+
+                    if (err) throw err;
+                    if (result.length != 0) {
+                        fail = true;
+                        console.log("Username already exists");
+                        let out1 = {
+                            status: {
+                                error: true,
+                                error_desc: "Username already exists"
+                            },
+                            data: {}
+                        };
+                        res.setHeader('Access-Control-Allow-Origin', '*');
+                        res.setHeader('Content-Type', 'application/json');
+                        res.end(JSON.stringify(out1));
+
+                    }
+
+                    if (!fail) {
+                        console.log(" Username does not exist");
+
+                        queryString = `Insert Into user (username, password) Values ('${loginData.username}', '${loginData.password}');`;
+                        con.query(queryString, function (err, result) {
+                            if (err) {
+                                var out3 = {
+                                    status: {
+                                        error: true,
+                                        error_desc: "Unable to create account"
+                                    },
+                                    data: {}
+                                };
+
+                                res.setHeader('Access-Control-Allow-Origin', '*');
+                                res.setHeader('Content-Type', 'application/json');
+                                res.end(JSON.stringify(out3));
+                            } else {
+                                con.query(`Select * From user where username='${loginData.username}' and password='${loginData.password}'`, function (err, result) {
+                                    if (err) throw err;
+
+                                    var out2 = {
+                                        status: {
+                                            error: false,
+                                            error_desc: ""
+                                        },
+                                        data: {
+                                            userid: result[0].userid,
+                                            username: result[0].username,
+                                            password: result[0].password
+                                        }
+                                    };
+
+                                    res.setHeader('Access-Control-Allow-Origin', '*');
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.end(JSON.stringify(out2));
+                                });
+                            }
+
+                        });
+
+                    }
+                });
+
+            });
+        } else if (q.cmd == "setCriteriaConfig") {
             let data = '';
             req.on('data', chunk => {
                 data += chunk.toString();
@@ -242,7 +320,7 @@ const server = createServer((req, res) => {
 
                 res.end(data);
             });
-        }else if (q.cmd == "addCriteria") {
+        } else if (q.cmd == "addCriteria") {
             let data = '';
             req.on('data', chunk => {
                 data += chunk.toString();
@@ -254,8 +332,8 @@ const server = createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
                 let criteriaInfo = JSON.parse(data);
                 let dataString = '';
-                
-                for(c of criteriaInfo){
+
+                for (c of criteriaInfo) {
                     dataString += "(" + c.team_id + "," + c.criteria_id + "," + c.criteria_value + "), ";
                 }
 
@@ -263,7 +341,7 @@ const server = createServer((req, res) => {
 
                 // console.log(dataString);
 
-                
+
                 let queryString = `Insert Into criteria_entries (team_id, criteria_id, criteria_value) Values ${dataString} ;`;
                 con.query(queryString, function (err, result) {
                     if (err) throw err;
@@ -283,8 +361,8 @@ const server = createServer((req, res) => {
 
                 res.setHeader('Content-Type', 'application/json');
                 let criteriaInfo = JSON.parse(data);
-                
-                for(c of criteriaInfo){
+
+                for (c of criteriaInfo) {
                     let queryString = `Update criteria_entries Set criteria_value=${c.criteria_value} Where team_id=${c.team_id} and criteria_id=${c.criteria_id};`;
                     con.query(queryString, function (err, result) {
                         if (err) throw err;

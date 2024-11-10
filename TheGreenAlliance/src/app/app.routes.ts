@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EventComponent } from './event/event.component';
 import { TeamComponent } from './team/team.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { SignupPageComponent } from './signup-page/signup-page.component';
 
 export const routes: Routes = [
     { path: 'events', component: EventsPageComponent},
@@ -13,6 +14,7 @@ export const routes: Routes = [
     { path: 'event/:id', component: EventComponent},
     { path: 'team/:id', component: TeamComponent},
     { path: 'login', component: LoginPageComponent},
+    { path: 'signup', component: SignupPageComponent},
     { path: '', component: HomePageComponent },
     { path: '**', component: PageNotFoundComponent },
 ];

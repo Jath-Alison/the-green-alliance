@@ -46,6 +46,13 @@ export class DatabaseAPI {
     return this.http.get<loginResponse>(url);
   }
 
+  createLogin(username: string, password: string): Observable<loginResponse> {
+
+    let url = `http://localhost:3000/?cmd=createLogin`;
+
+    return this.http.post<loginResponse>(url, {username: username, password: password});
+  }
+
   getCriteriaConfig(userID: number, eventID: number): Observable<criteriaConfigResponse> {
 
     let url = `http://localhost:3000/?cmd=getCriteriaConfig&userid=${userID}&eventid=${eventID}`;
