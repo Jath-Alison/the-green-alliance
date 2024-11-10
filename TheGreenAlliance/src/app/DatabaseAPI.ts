@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { criteriaConfig, criteriaConfigResponse, loginResponse, TeamCriteriaValue, TeamCriteriaValuesResponse } from './Schemas'
+import { criteriaConfig, criteriaConfigResponse, loginResponse, PickListResponse, TeamCriteriaValue, TeamCriteriaValuesResponse } from './Schemas'
 
 let numArr :number[] = [];
 
@@ -13,7 +13,6 @@ export const userData = {
 
 @Injectable({ providedIn: 'root' })
 export class DatabaseAPI {
-
   constructor(private http: HttpClient) { }
 
   setUsername(name: string): void {
@@ -56,10 +55,8 @@ export class DatabaseAPI {
 
   setCriteriaConfig(criteriaConfig: criteriaConfigResponse) {
     let url = `http://localhost:3000/?cmd=setCriteriaConfig`;
-    this.http.post<criteriaConfigResponse>(url, criteriaConfig, {
+    return this.http.post<criteriaConfigResponse>(url, criteriaConfig, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
-    }).subscribe(response => {
-      console.log('Updated config:', criteriaConfig);
     });
   }
 
@@ -71,18 +68,32 @@ export class DatabaseAPI {
     return a;
   }
 
-  setCriteria(teamCriteriaValues: TeamCriteriaValuesResponse){
-    let url = `http://localhost:3000/?cmd=setCriteriaEntries`;
-    let a: Observable<TeamCriteriaValuesResponse> = this.http.post<TeamCriteriaValuesResponse>(url, teamCriteriaValues, {
+  getTeamCriteria(userID: number, eventID: number, teamID:number) : Observable<TeamCriteriaValuesResponse>{
+    let url = `http://localhost:3000/?cmd=getTeamCriteria&userid=${userID}&eventid=${eventID}&teamid=${teamID}`;
+
+    return this.http.get<TeamCriteriaValuesResponse>(url);
+  }
+
+  setCriteria(teamCriteriaValues: TeamCriteriaValue[]){
+    let url = `http://localhost:3000/?cmd=setCriteria`;
+    let a: Observable<TeamCriteriaValue[]> = this.http.post<TeamCriteriaValue[]>(url, teamCriteriaValues, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
     });
     return a;
   }
-  addCriteria(teamCriteriaValues: TeamCriteriaValue){
-    let url = `http://localhost:3000/?cmd=addCriteriaEntry`;
-    let a: Observable<TeamCriteriaValuesResponse> = this.http.post<TeamCriteriaValuesResponse>(url, teamCriteriaValues, {
+  addCriteria(teamCriteriaValues: TeamCriteriaValue[]){
+    console.log(teamCriteriaValues);
+
+    let url = `http://localhost:3000/?cmd=addCriteria`;
+    let a: Observable<TeamCriteriaValue[]> = this.http.post<TeamCriteriaValue[]>(url, teamCriteriaValues, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
     });
     return a;
+  }
+
+  getPickList(userID: number, eventID: number) : Observable<PickListResponse>{
+    let url = `http://localhost:3000/?cmd=getTeamCriteriaScore&userid=${userID}&eventid=${eventID}`;
+
+    return this.http.get<PickListResponse>(url);
   }
 }

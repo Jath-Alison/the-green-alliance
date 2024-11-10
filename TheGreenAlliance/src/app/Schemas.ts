@@ -220,6 +220,10 @@ export interface TeamCriteriaValue{
   team_id: number,
   criteria_id: number,
   criteria_value: number,
+  user_id: number,
+  event_id: number,
+  criteria_name: string,
+  criteria_weight: number,
 }
 
 export interface TeamCriteriaValuesResponse {
@@ -227,5 +231,18 @@ export interface TeamCriteriaValuesResponse {
     error: boolean,
     error_desc: string
   },
-  data: criteriaConfig[]
+  data: TeamCriteriaValue[]
+}
+
+export interface TeamPickInfo{
+  team_id: number,
+  score: number
+}
+
+export interface PickListResponse{
+  status: {
+    error: boolean,
+    error_desc: string
+  },
+  data: TeamPickInfo[]
 }

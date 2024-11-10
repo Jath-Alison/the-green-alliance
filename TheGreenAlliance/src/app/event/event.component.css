@@ -41,13 +41,6 @@
     padding: 5px;
 }
 
-.TeamInfoBlock{
-    padding: 5px;
-    margin: 5px;
-    border-radius: 10px;
-    background-color: #c2c2c2;
-}
-
 .splitContent{
     display: flex;
     flex-direction: row;

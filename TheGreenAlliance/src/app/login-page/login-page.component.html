@@ -1,19 +1,25 @@
-<form (ngSubmit)="onSubmit()">
-    <div class="modal-body">
-        <label for="username">Username:</label>
-        <input type="text" id="username" [(ngModel)]="username"
-            name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" [(ngModel)]="password"
-            name="password" required>
-        @if(error != ""){
+<div class="center">
+    <div class="content" style="padding:15px">
+        <h1>Login</h1>
         <hr>
-        {{error}}
-        }
+        <form (ngSubmit)="onSubmit()">
+            <div class="modal-body">
+                <label for="username">Username:</label>
+                <input type="text" id="username" [(ngModel)]="username"
+                    name="username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" [(ngModel)]="password"
+                    name="password" required>
+                @if(error != ""){
+                <hr>
+                {{error}}
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="submit"
+                    class="btn btn-outline-secondary">Login</button>
+            </div>
+        </form>
     </div>
-    <div class="modal-footer">
-        <button type="submit"
-            class="btn btn-outline-secondary">Login</button>
-    </div>
-</form>
+</div>

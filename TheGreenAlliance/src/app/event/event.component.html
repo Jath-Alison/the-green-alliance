@@ -49,14 +49,16 @@
                     <div class="splitContent">
                         <div class="leftContent">
                             @for(team of Teams.data; track team.id){
-                            <div class="TeamInfoBlock">
-                                {{team.number}} -- {{team.team_name}}
-                            </div>
+                            <app-team-number-block (teamNumberClicked)="handleTeamNumberClicked($event)" [teamInfo]="team"></app-team-number-block>
                             }
                         </div>
                         <div class="rightContent">
                             <div
                                 style="height:100%; background-color: #733939;">
+                                @if(eventData.id != null && currentTeam != null){
+                                <app-event-team-criteria
+                                    [criteriaInfo]="criteriaOutput" [teamInfo]="currentTeam" [eventId]="eventData.id"></app-event-team-criteria>
+                                }
                             </div>
                         </div>
                     </div>
@@ -112,6 +114,14 @@
                 </ng-template>
             </li>
             <li [ngbNavItem]="4">
+                <button ngbNavLink>Pick list</button>
+                <ng-template ngbNavContent>
+                    <div>
+                        <app-pick-list [eventId]="eventData.id" [teamsList]="Teams"></app-pick-list>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="5">
                 <button ngbNavLink>Criteria</button>
                 <ng-template ngbNavContent>
                     <div>
@@ -131,7 +141,9 @@
                             (click)="sendCriteriaConfig()"> Save Criteria
                         </button>
                         }@else {
-                        <app-login-button></app-login-button>
+                        <button class="btn btn-outline-primary"
+                            [routerLink]="'/login'"> Login
+                        </button>
                         }
                     </div>
                 </ng-template>

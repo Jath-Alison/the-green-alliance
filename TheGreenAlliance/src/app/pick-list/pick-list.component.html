@@ -1,0 +1,10 @@
+@if (pickList != null) {
+    @for (team of sortedTeamPickInfoList; track $index) {
+        {{$index + 1}} -- {{team.team_number}} -- {{team.team_name}} -- {{team.score}}<br>
+    }
+    <hr>
+    <h2>Teams without scores:</h2>
+    @for (team of teamsWithoutScore; track $index) {
+        {{team.team_number}} -- {{team.team_name}}<br>
+    }
+}

@@ -1,0 +1,16 @@
+.TeamInfoBlock{
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: #c2c2c2;
+}
+
+.TeamInfoBlock:hover{
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: #c2c2c2;
+
+    background: #70c7c0;
+    outline: 3px solid #487975;
+}

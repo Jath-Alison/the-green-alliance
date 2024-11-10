@@ -1,0 +1,23 @@
+<div class="center">
+    <div>
+        <h1>
+            {{teamInfo.number}} -- {{teamInfo.team_name}}
+        </h1>
+    </div>
+    <div>
+        @if (teamCriteriaResponse != null){
+        @for (criteria of teamCriteriaResponse.data; track $index) {
+        <h2>
+            {{criteria.criteria_id}} -- {{criteria.criteria_name}}:
+            <!-- {{criteria.criteria_value}} -->
+        </h2>
+        <input type="number" class="form-control" [(ngModel)]="criteria.criteria_value">
+        }
+        }@else {
+            <app-loading></app-loading>
+        }
+    </div>
+    <div>
+        <button class="btn btn-primary" (click)="saveCriteria()">Save</button>
+    </div>
+</div>
