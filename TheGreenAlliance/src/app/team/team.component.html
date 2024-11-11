@@ -12,30 +12,50 @@
     <div class="contentW">
         <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
             <li [ngbNavItem]="1">
-                <button ngbNavLink>Event Info</button>
+                <button ngbNavLink>Team Info</button>
                 <ng-template ngbNavContent>
-                    <div>Competition Dates:</div>
+                    @if(TeamData$ | async; as teamData){
+                        <div class="TeamInfo">Registered: {{teamData.registered}}</div>
+                        <div class="TeamInfo">Organization: {{teamData.organization}}</div>
+                        <div class="TeamInfo">Location: {{teamData.location.city}}, {{teamData.location.region}}, {{teamData.location.country}}</div>
+                        <div class="TeamInfo">Grade Level: {{teamData.grade}}</div>
+                        <div class="TeamInfo">Robot Name: {{teamData.robot_name}}</div>
+                    }
                 </ng-template>
             </li>
             <li [ngbNavItem]="2">
-                <button ngbNavLink>Teams</button>
+                <button ngbNavLink>Events</button>
                 <ng-template ngbNavContent>
-                    <p>
-                        Exercitation +1 labore velit, blog sartorial PBR
-                        leggings next level wes anderson artisan four loko
-                        farm-to-table craft beer twee. Qui photo booth
-                        letterpress, commodo enim craft beer mlkshk aliquip jean
-                        shorts
-                        ullamco ad vinyl cillum PBR. Homo nostrud organic,
-                        assumenda labore aesthetic magna delectus mollit. Keytar
-                        helvetica VHS salvia yr, vero magna velit sapiente
-                        labore stumptown. Vegan fanny pack odio cillum wes
-                        anderson
-                        8-bit, sustainable jean shorts beard ut DIY ethical
-                        culpa terry richardson biodiesel. Art party scenester
-                        stumptown, tumblr butcher vero sint qui sapiente
-                        accusamus tattooed echo park.
-                    </p>
+                    <div style="padding: 5px;">
+                        <div ngbDropdown class="d-inline-block">
+                            <button type="button" class="btn btn-outline-primary"
+                                id="dropdownBasic1" ngbDropdownToggle>
+                                Season
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                @if (Seasons | async; as s) {
+                                @for (season of s.data; track $index) {
+                                <button ngbDropdownItem
+                                    (click)="setSeasonFilter(season.id)">
+                                    @if (season.id === SeasonFilterID) {
+                                    ->
+                                    }
+                                    {{season.name}}
+                                </button>
+                                }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    @if (EventInfo != null){
+                        @for (event of EventInfo.data; track $index){
+                            <div style="margin-bottom: 5px">
+                                <app-event-block [eventData]="event" (eventClicked)="eventClicked($event)"></app-event-block>
+                            </div>
+                        }
+                    }
                 </ng-template>
             </li>
             <li [ngbNavItem]="3">
@@ -61,7 +81,7 @@
             </li>
         </ul>
 
-        @if(TeamData | async; as teamData){
+        @if(TeamData$ | async; as teamData){
         <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
         <pre>Active: {{ active }}</pre>

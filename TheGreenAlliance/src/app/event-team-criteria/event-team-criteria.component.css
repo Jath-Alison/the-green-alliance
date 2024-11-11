@@ -4,4 +4,7 @@
     align-items: center;
     flex-direction: column;
     padding: 15px;
+
+    position: sticky;
+    top: 60px;
 }

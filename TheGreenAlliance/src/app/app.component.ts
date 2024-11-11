@@ -9,7 +9,7 @@ import { DatabaseAPI } from './DatabaseAPI';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive,
+  imports: [RouterOutlet,
     EventsComponent, NavbarComponent,
     NgbModule],
   templateUrl: './app.component.html',

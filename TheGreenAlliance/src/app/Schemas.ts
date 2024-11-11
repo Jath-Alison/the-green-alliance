@@ -246,3 +246,39 @@ export interface PickListResponse{
   },
   data: TeamPickInfo[]
 }
+
+export interface EventRankings {
+  meta: Meta
+  data: EventRank []
+}
+
+export interface Meta {
+  current_page: number
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  next_page_url: string
+  path: string
+  per_page: number
+  prev_page_url: string
+  to: number
+  total: number
+}
+
+export interface EventRank {
+  id: number
+  event: Event
+  division: Division
+  rank: number
+  team: Team2
+  wins: number
+  losses: number
+  ties: number
+  wp: number
+  ap: number
+  sp: number
+  high_score: number
+  average_points: number
+  total_points: number
+}

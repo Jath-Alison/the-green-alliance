@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EventData, Matches, Team, Teams } from '../Schemas';
+import { EventData, EventRankings, Matches, Team, Teams } from '../Schemas';
 import { RobotEventsAPI } from '../RobotEventsAPI';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -29,6 +29,8 @@ export class EventComponent {
 
   Teams!: Teams;
   Matches!: Matches;
+
+  Rankings!: EventRankings;
 
   currentTeam!:Team;
   criteriaOutput:criteriaConfig[] = [];
@@ -117,6 +119,11 @@ export class EventComponent {
     this.api.getMatches(eventID, 1).subscribe(matches => {
       // console.log(matches);
       this.Matches = matches;
+    });
+
+    this.api.getRankings(eventID, 1).subscribe(rankings => {
+      // console.log(matches);
+      this.Rankings = rankings;
     });
   }
 

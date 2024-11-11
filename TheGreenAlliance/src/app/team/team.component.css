@@ -30,6 +30,17 @@
     padding: 5px;
 }
 
+.TeamInfo{
+    padding: 3px;
+    margin: 5px;
+
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    
+
+    font-size: 1.25em;
+}
+
 @media not screen and (max-width: 500px) {
     .title{
         position: sticky;

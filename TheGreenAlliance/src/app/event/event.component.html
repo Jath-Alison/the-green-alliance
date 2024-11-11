@@ -45,27 +45,48 @@
             <li [ngbNavItem]="2">
                 <button ngbNavLink>Teams</button>
                 <ng-template ngbNavContent>
-                    @if(Teams){
-                    <div class="splitContent">
-                        <div class="leftContent">
-                            @for(team of Teams.data; track team.id){
-                            <app-team-number-block (teamNumberClicked)="handleTeamNumberClicked($event)" [teamInfo]="team"></app-team-number-block>
-                            }
-                        </div>
-                        <div class="rightContent">
-                            <div
-                                style="height:100%; background-color: #733939;">
-                                @if(eventData.id != null && currentTeam != null){
-                                <app-event-team-criteria
-                                    [criteriaInfo]="criteriaOutput" [teamInfo]="currentTeam" [eventId]="eventData.id"></app-event-team-criteria>
-                                }
-                            </div>
-                        </div>
+                    @if(Teams.data){
+                    @for (team of Teams.data; track $index) {
+                    <div class="TeamInfoBlock">
+                        {{team.number}} -- {{team.team_name}}
+                    </div>
+                    }
+                    @if(Teams.data.length == 0)
+                    {
+                    <div class="center">
+                        <h2>No Data Found</h2>
+                    </div>
+                    }
+                    }@else {
+                    <div class="center">
+                        <app-loading></app-loading>
                     </div>
                     }
                 </ng-template>
             </li>
             <li [ngbNavItem]="3">
+                <button ngbNavLink>Rankings</button>
+                <ng-template ngbNavContent>
+                    @if(Rankings.data){
+                    @for (rank of Rankings.data; track $index) {
+                    <div class="TeamInfoBlock">
+                        {{rank.team.name}} -- {{rank.wins}}
+                    </div>
+                    }
+                    @if(Rankings.data.length == 0)
+                    {
+                    <div class="center">
+                        <h2>No Data Found</h2>
+                    </div>
+                    }
+                    }@else {
+                    <div class="center">
+                        <app-loading></app-loading>
+                    </div>
+                    }
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="4">
                 <button ngbNavLink>Matches</button>
                 <ng-template ngbNavContent>
                     <div>
@@ -109,19 +130,38 @@
                             </div>
                         </div>
                         }
+                        @if(Rankings.data.length == 0)
+                        {
+                        <div class="center">
+                            <h2>No Data Found</h2>
+                        </div>
+                        }
+                        }@else {
+                        <div class="center">
+                            <app-loading></app-loading>
+                        </div>
                         }
                     </div>
                 </ng-template>
             </li>
-            <li [ngbNavItem]="4">
+            <li [ngbNavItem]="5">
                 <button ngbNavLink>Pick list</button>
                 <ng-template ngbNavContent>
                     <div>
-                        <app-pick-list [eventId]="eventData.id" [teamsList]="Teams"></app-pick-list>
+                        @if (CriteriaConfigs != null){<app-pick-list
+                            [eventId]="eventData.id"
+                            [teamsList]="Teams"></app-pick-list>
+                        }@else {
+                        <div class="center">
+                            <button class="btn btn-outline-primary"
+                                [routerLink]="'/login'"> Login
+                            </button>
+                        </div>
+                        }
                     </div>
                 </ng-template>
             </li>
-            <li [ngbNavItem]="5">
+            <li [ngbNavItem]="6">
                 <button ngbNavLink>Criteria</button>
                 <ng-template ngbNavContent>
                     <div>
@@ -141,11 +181,49 @@
                             (click)="sendCriteriaConfig()"> Save Criteria
                         </button>
                         }@else {
+                        <div class="center">
+                            <button class="btn btn-outline-primary"
+                                [routerLink]="'/login'"> Login
+                            </button>
+                        </div>
+                        }
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="7">
+                <button ngbNavLink>Criteria Scores</button>
+                <ng-template ngbNavContent>
+                    @if (CriteriaConfigs != null){
+                    @if(Teams){
+                    <div class="splitContent">
+                        <div class="leftContent">
+                            @for(team of Teams.data; track team.id){
+                            <app-team-number-block
+                                (teamNumberClicked)="handleTeamNumberClicked($event)"
+                                [teamInfo]="team"></app-team-number-block>
+                            }
+                        </div>
+                        <div class="rightContent">
+                            <div
+                                style="height:100%; background-color: #733939;">
+                                @if(eventData.id != null && currentTeam !=
+                                null){
+                                <app-event-team-criteria
+                                    [criteriaInfo]="criteriaOutput"
+                                    [teamInfo]="currentTeam"
+                                    [eventId]="eventData.id"></app-event-team-criteria>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    }@else {
+                    <div class="center">
                         <button class="btn btn-outline-primary"
                             [routerLink]="'/login'"> Login
                         </button>
-                        }
                     </div>
+                    }
                 </ng-template>
             </li>
         </ul>
