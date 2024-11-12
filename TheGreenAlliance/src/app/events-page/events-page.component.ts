@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DatabaseAPI } from '../DatabaseAPI';
 
 @Component({
   selector: 'app-events-page',
@@ -16,10 +17,12 @@ import { Router } from '@angular/router';
   styleUrl: './events-page.component.css'
 })
 export class EventsPageComponent {
-  constructor(private api: RobotEventsAPI) { }
+  constructor(private api: RobotEventsAPI, private db:DatabaseAPI) { }
 
   ngOnInit(): void {
     this.setProgramFilter(this.Programs[0].id);
+
+    this.db.loadFavoriteEvents();
     
   }
 

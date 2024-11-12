@@ -189,6 +189,70 @@ const server = createServer((req, res) => {
                     res.end(JSON.stringify(out));
 
                 });
+        } else if (q.cmd == "getFavoriteTeams") {
+            con.query(`Select * From favorite_teams Where user_id=${q.user_id};`,
+                function (err, result) {
+                    if (err) throw err;//Bypassed error info
+
+                    var error_out = false;
+                    var error_desc_out = "";
+                    var data_out = [];
+
+                    if (result.length == 0) {
+                        error_out = false;
+                        error_desc_out = "No favorites Found";
+                        data_out = result;
+                    } else if (result.length > 0) {
+                        data_out = result;
+                    }
+
+                    res.statusCode = 200;
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.setHeader('Content-Type', 'application/json');
+
+                    var out = {
+                        status: {
+                            error: error_out,
+                            error_desc: error_desc_out
+                        },
+                        data: data_out
+                    };
+
+                    res.end(JSON.stringify(data_out));
+
+                });
+        } else if (q.cmd == "getFavoriteEvents") {
+            con.query(`Select * From favorite_events Where user_id=${q.user_id};`,
+                function (err, result) {
+                    if (err) throw err;//Bypassed error info
+
+                    var error_out = false;
+                    var error_desc_out = "";
+                    var data_out = [];
+
+                    if (result.length == 0) {
+                        error_out = false;
+                        error_desc_out = "No favorites Found";
+                        data_out = result;
+                    } else if (result.length > 0) {
+                        data_out = result;
+                    }
+
+                    res.statusCode = 200;
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.setHeader('Content-Type', 'application/json');
+
+                    var out = {
+                        status: {
+                            error: error_out,
+                            error_desc: error_desc_out
+                        },
+                        data: data_out
+                    };
+
+                    res.end(JSON.stringify(data_out));
+
+                });
         } else {
             res.statusCode = 404;
             res.setHeader('Content-Type', 'text/html');
@@ -349,8 +413,7 @@ const server = createServer((req, res) => {
 
                 res.end(data);
             });
-        }
-        else if (q.cmd == "setCriteria") {
+        } else if (q.cmd == "setCriteria") {
             let data = '';
             req.on('data', chunk => {
                 data += chunk.toString();
@@ -368,6 +431,101 @@ const server = createServer((req, res) => {
                         if (err) throw err;
                     });
                 }
+
+                res.end(data);
+            });
+        } else if (q.cmd == "deleteCriteriaConfig") {
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk.toString();
+            });
+            req.on('end', () => {
+                // console.log('POST data:', data);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+
+                res.setHeader('Content-Type', 'application/json');
+                let criteriaInfo = parseInt(data);
+
+                let queryString = `Delete From criteria_config Where criteria_id=${criteriaInfo};`;
+                con.query(queryString, function (err, result) {
+                    if (err) throw err;
+                });
+
+                res.end(data);
+            });
+        }else if (q.cmd == "addFavoriteTeam") {
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk.toString();
+            });
+            req.on('end', () => {
+                // console.log('POST data:', data);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+
+                res.setHeader('Content-Type', 'application/json');
+                let favoriteInfo = JSON.parse(data);
+
+                let queryString = `Insert Into favorite_teams (user_id, team_id) Values (${favoriteInfo.user_id}, ${favoriteInfo.team_id});`;
+                con.query(queryString, function (err, result) {
+                    if (err) throw err;
+                });
+
+                res.end(data);
+            });
+        }else if (q.cmd == "removeFavoriteTeam") {
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk.toString();
+            });
+            req.on('end', () => {
+                // console.log('POST data:', data);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+
+                res.setHeader('Content-Type', 'application/json');
+                let favoriteInfo = JSON.parse(data);
+
+                let queryString = `Delete From favorite_teams Where user_id=${favoriteInfo.user_id} and team_id=${favoriteInfo.team_id};`;
+                con.query(queryString, function (err, result) {
+                    if (err) throw err;
+                });
+
+                res.end(data);
+            });
+        }else if (q.cmd == "addFavoriteEvent") {
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk.toString();
+            });
+            req.on('end', () => {
+                // console.log('POST data:', data);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+
+                res.setHeader('Content-Type', 'application/json');
+                let favoriteInfo = JSON.parse(data);
+
+                let queryString = `Insert Into favorite_events (user_id, event_id) Values (${favoriteInfo.user_id}, ${favoriteInfo.event_id});`;
+                con.query(queryString, function (err, result) {
+                    if (err) throw err;
+                });
+
+                res.end(data);
+            });
+        }else if (q.cmd == "removeFavoriteEvent") {
+            let data = '';
+            req.on('data', chunk => {
+                data += chunk.toString();
+            });
+            req.on('end', () => {
+                // console.log('POST data:', data);
+                res.setHeader('Access-Control-Allow-Origin', '*');
+
+                res.setHeader('Content-Type', 'application/json');
+                let favoriteInfo = JSON.parse(data);
+
+                let queryString = `Delete From favorite_teams Where user_id=${favoriteInfo.user_id} and event_id=${favoriteInfo.event_id};`;
+                con.query(queryString, function (err, result) {
+                    if (err) throw err;
+                });
 
                 res.end(data);
             });

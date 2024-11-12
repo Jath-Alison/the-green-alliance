@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TeamsComponent } from '../teams/teams.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DatabaseAPI } from '../DatabaseAPI';
 
 @Component({
   selector: 'app-teams-page',
@@ -11,6 +12,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './teams-page.component.css'
 })
 export class TeamsPageComponent {
+
+  constructor(private db: DatabaseAPI){}
+
+  ngOnInit(){
+    this.db.loadFavoriteTeams();
+  }
 
   OnlyRegistered: number = 1;
 

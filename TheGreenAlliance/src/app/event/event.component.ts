@@ -32,8 +32,8 @@ export class EventComponent {
 
   Rankings!: EventRankings;
 
-  currentTeam!:Team;
-  criteriaOutput:criteriaConfig[] = [];
+  currentTeam!: Team;
+  criteriaOutput: criteriaConfig[] = [];
 
   Title: string = "Loading...";
   Subtitle: string = "Loading...";
@@ -55,11 +55,11 @@ export class EventComponent {
         this.db.getCriteriaConfig(this.db.getUserID(), this.eventData.id).subscribe(criteriaConfigs => {
           this.CriteriaConfigs = criteriaConfigs;
 
-          let temp:number[] = [];
+          let temp: number[] = [];
 
           for (let index = 0; index < criteriaConfigs.data.length; index++) {
             const id = criteriaConfigs.data[index].criteria_id;
-            temp.push(id); 
+            temp.push(id);
           }
 
           this.criteriaOutput = criteriaConfigs.data;
@@ -124,6 +124,7 @@ export class EventComponent {
     this.api.getRankings(eventID, 1).subscribe(rankings => {
       // console.log(matches);
       this.Rankings = rankings;
+      this.Rankings.data.reverse();
     });
   }
 
@@ -139,5 +140,13 @@ export class EventComponent {
   StartDate: string = "";
   EndDate: string = "";
 
+  deleteCriteriaConfig(id: number) {
+    console.log("deleting: " + id);
+    this.db.deleteCriteriaConfig(id).subscribe(result => {
+      console.log("deleted: " + result);
+
+      this.getCriteriaConfig();
+    });
+  }
 
 }
