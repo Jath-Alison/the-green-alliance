@@ -53,7 +53,7 @@ export class DatabaseAPI {
     });
   }
   getFavoriteTeams() {
-    return userData.favoriteEvents;
+    return userData.favoriteTeams;
   }
   setFavoriteTeam(id: number, favorite: boolean) {
     if (this.getUserID() == -1) { return; }

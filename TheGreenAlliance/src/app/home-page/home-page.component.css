@@ -1,0 +1,19 @@
+.center{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.content {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 700px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.IntraBlockPadding {
+    padding: 5px;
+}

@@ -451,6 +451,11 @@ const server = createServer((req, res) => {
                     if (err) throw err;
                 });
 
+                queryString = `Delete From criteria_entries Where criteria_id=${criteriaInfo};`;
+                con.query(queryString, function (err, result) {
+                    if (err) throw err;
+                });
+
                 res.end(data);
             });
         }else if (q.cmd == "addFavoriteTeam") {
@@ -522,7 +527,7 @@ const server = createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
                 let favoriteInfo = JSON.parse(data);
 
-                let queryString = `Delete From favorite_teams Where user_id=${favoriteInfo.user_id} and event_id=${favoriteInfo.event_id};`;
+                let queryString = `Delete From favorite_events Where user_id=${favoriteInfo.user_id} and event_id=${favoriteInfo.event_id};`;
                 con.query(queryString, function (err, result) {
                     if (err) throw err;
                 });

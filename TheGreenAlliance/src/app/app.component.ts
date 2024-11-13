@@ -20,7 +20,11 @@ export class AppComponent {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.username = this.db.getUsername();
-        console.log("got username: " + this.db.getUsername() + " w/ id: " + this.db.getUserID());
+        // console.log("got username: " + this.db.getUsername() + " w/ id: " + this.db.getUserID());
+      
+      
+        this.db.loadFavoriteEvents();
+        this.db.loadFavoriteTeams();
       }
     });
   }

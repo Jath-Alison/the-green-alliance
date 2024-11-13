@@ -1,1 +1,56 @@
-<p>home-page works!</p>
+<div class="center">
+    <div class="content">
+        <h1 style="text-align: center;">home-page works!</h1>
+
+        @if(username != ""){
+
+        <h2 style="text-align: center;">Hello {{username}}</h2>
+
+        <div class="center">
+            <button class="btn btn-primary" (click)="openEvents()">Fav
+                Events</button>
+            <button class="btn btn-primary" (click)="openTeams()">Fav
+                Teams</button>
+        </div>
+        <div style="padding: 5px"></div>
+
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="eventsCollapsed">
+            <div class="card">
+                <div class="center">
+                    <div class="content">
+                        <h2 style="text-align: center;">Favorite Events</h2>
+                        @if(favEventData != null){
+                        @for(event of favEventData.data; track $index){
+                        <div class="IntraBlockPadding"></div>
+                        <app-event-block
+                            [eventData]="event"></app-event-block>
+                        }
+                        }
+                        @else {
+                        <app-loading></app-loading>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="teamsCollapsed">
+            <div class="card">
+                <div class="center">
+                    <div class="content">
+                        <h2 style="text-align: center;">Favorite Teams</h2>
+                        @if(favTeamData != null){
+                        @for(team of favTeamData.data; track $index){
+                        <div class="IntraBlockPadding"></div>
+                        <app-team-block [teamData]="team"></app-team-block>
+                        }
+                        }
+                        @else {
+                        <app-loading></app-loading>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

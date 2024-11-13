@@ -21,9 +21,6 @@ export class EventsPageComponent {
 
   ngOnInit(): void {
     this.setProgramFilter(this.Programs[0].id);
-
-    this.db.loadFavoriteEvents();
-    
   }
 
   ProgramFilterID: number = 0;

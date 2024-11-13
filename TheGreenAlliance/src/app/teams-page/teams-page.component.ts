@@ -16,7 +16,6 @@ export class TeamsPageComponent {
   constructor(private db: DatabaseAPI){}
 
   ngOnInit(){
-    this.db.loadFavoriteTeams();
   }
 
   OnlyRegistered: number = 1;
