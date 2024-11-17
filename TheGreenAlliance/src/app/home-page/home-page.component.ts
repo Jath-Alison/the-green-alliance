@@ -6,11 +6,12 @@ import { EventBlockComponent } from '../event-block/event-block.component';
 import { LoadingComponent } from "../loading/loading.component";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamBlockComponent } from "../team-block/team-block.component";
+import { LoginButtonComponent } from "../login-button/login-button.component";
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [EventBlockComponent, LoadingComponent, NgbModule, TeamBlockComponent],
+  imports: [EventBlockComponent, LoadingComponent, NgbModule, TeamBlockComponent, LoginButtonComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
