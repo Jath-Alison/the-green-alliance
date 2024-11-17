@@ -259,7 +259,7 @@ const server = createServer((req, res) => {
             res.end("Page not Found");
         }
     } else if (req.method == "POST") {
-        console.log("Post Received");
+        // console.log("Post Received");
         if (q.cmd == "createLogin") {
             let data = '';
             req.on('data', chunk => {

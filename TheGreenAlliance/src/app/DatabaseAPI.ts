@@ -43,7 +43,7 @@ export class DatabaseAPI {
   }
 
   loadFavoriteTeams() {
-    let url = `http://localhost:3000/?cmd=getFavoriteTeams&user_id=${userData.userID}`;
+    let url = `http://54.209.71.75:3000/?cmd=getFavoriteTeams&user_id=${userData.userID}`;
     this.http.get<TeamIds>(url).subscribe(result => {
       // console.log(result);
       for (let data of result){
@@ -59,17 +59,17 @@ export class DatabaseAPI {
     if (this.getUserID() == -1) { return; }
     if (favorite && userData.favoriteTeams.indexOf(id) == -1) {
       userData.favoriteTeams.push(id);
-      let url = `http://localhost:3000/?cmd=addFavoriteTeam`;
+      let url = `http://54.209.71.75:3000/?cmd=addFavoriteTeam`;
       this.http.post<number>(url, { user_id: this.getUserID(), team_id: id }).subscribe(result => { });
     } else if (!favorite && userData.favoriteTeams.indexOf(id) != -1) {
       userData.favoriteTeams = userData.favoriteTeams.filter((ele, ind) => ele != id);
-      let url = `http://localhost:3000/?cmd=removeFavoriteTeam`;
+      let url = `http://54.209.71.75:3000/?cmd=removeFavoriteTeam`;
       this.http.post<number>(url, { user_id: this.getUserID(), team_id: id }).subscribe(result => { });
     }
   }
 
   loadFavoriteEvents() {
-    let url = `http://localhost:3000/?cmd=getFavoriteEvents&user_id=${userData.userID}`;
+    let url = `http://54.209.71.75:3000/?cmd=getFavoriteEvents&user_id=${userData.userID}`;
     this.http.get<EventIds>(url).subscribe(result => {
       // console.log(result);
       for (let data of result){
@@ -85,45 +85,45 @@ export class DatabaseAPI {
     if (this.getUserID() == -1) { return; }
     if (favorite && userData.favoriteEvents.indexOf(id) == -1) {
       userData.favoriteEvents.push(id);
-      let url = `http://localhost:3000/?cmd=addFavoriteEvent`;
+      let url = `http://54.209.71.75:3000/?cmd=addFavoriteEvent`;
       this.http.post<number>(url, { user_id: this.getUserID(), event_id: id }).subscribe(result => { });
     } else if (!favorite && userData.favoriteEvents.indexOf(id) != -1) {
       userData.favoriteEvents = userData.favoriteEvents.filter((ele, ind) => ele != id);
-      let url = `http://localhost:3000/?cmd=removeFavoriteEvent`;
+      let url = `http://54.209.71.75:3000/?cmd=removeFavoriteEvent`;
       this.http.post<number>(url, { user_id: this.getUserID(), event_id: id }).subscribe(result => { });
     }
   }
 
   login(username: string, password: string): Observable<loginResponse> {
 
-    let url = `http://localhost:3000/?cmd=login&username=${username}&password=${password}`;
+    let url = `http://54.209.71.75:3000/?cmd=login&username=${username}&password=${password}`;
 
     return this.http.get<loginResponse>(url);
   }
 
   createLogin(username: string, password: string): Observable<loginResponse> {
 
-    let url = `http://localhost:3000/?cmd=createLogin`;
+    let url = `http://54.209.71.75:3000/?cmd=createLogin`;
 
     return this.http.post<loginResponse>(url, { username: username, password: password });
   }
 
   getCriteriaConfig(userID: number, eventID: number): Observable<criteriaConfigResponse> {
 
-    let url = `http://localhost:3000/?cmd=getCriteriaConfig&userid=${userID}&eventid=${eventID}`;
+    let url = `http://54.209.71.75:3000/?cmd=getCriteriaConfig&userid=${userID}&eventid=${eventID}`;
 
     return this.http.get<criteriaConfigResponse>(url);
   }
 
   setCriteriaConfig(criteriaConfig: criteriaConfigResponse) {
-    let url = `http://localhost:3000/?cmd=setCriteriaConfig`;
+    let url = `http://54.209.71.75:3000/?cmd=setCriteriaConfig`;
     return this.http.post<criteriaConfigResponse>(url, criteriaConfig, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
     });
   }
 
   addCriteriaConfig(singleCriteriaConfig: criteriaConfig): Observable<criteriaConfigResponse> {
-    let url = `http://localhost:3000/?cmd=addCriteriaConfig`;
+    let url = `http://54.209.71.75:3000/?cmd=addCriteriaConfig`;
     let a: Observable<criteriaConfigResponse> = this.http.post<criteriaConfigResponse>(url, singleCriteriaConfig, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
     });
@@ -131,7 +131,7 @@ export class DatabaseAPI {
   }
 
   deleteCriteriaConfig(criteriaID: number): Observable<number> {
-    let url = `http://localhost:3000/?cmd=deleteCriteriaConfig`;
+    let url = `http://54.209.71.75:3000/?cmd=deleteCriteriaConfig`;
     let a: Observable<number> = this.http.post<number>(url, criteriaID, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
     });
@@ -139,13 +139,13 @@ export class DatabaseAPI {
   }
 
   getTeamCriteria(userID: number, eventID: number, teamID: number): Observable<TeamCriteriaValuesResponse> {
-    let url = `http://localhost:3000/?cmd=getTeamCriteria&userid=${userID}&eventid=${eventID}&teamid=${teamID}`;
+    let url = `http://54.209.71.75:3000/?cmd=getTeamCriteria&userid=${userID}&eventid=${eventID}&teamid=${teamID}`;
 
     return this.http.get<TeamCriteriaValuesResponse>(url);
   }
 
   setCriteria(teamCriteriaValues: TeamCriteriaValue[]) {
-    let url = `http://localhost:3000/?cmd=setCriteria`;
+    let url = `http://54.209.71.75:3000/?cmd=setCriteria`;
     let a: Observable<TeamCriteriaValue[]> = this.http.post<TeamCriteriaValue[]>(url, teamCriteriaValues, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
     });
@@ -154,7 +154,7 @@ export class DatabaseAPI {
   addCriteria(teamCriteriaValues: TeamCriteriaValue[]) {
     console.log(teamCriteriaValues);
 
-    let url = `http://localhost:3000/?cmd=addCriteria`;
+    let url = `http://54.209.71.75:3000/?cmd=addCriteria`;
     let a: Observable<TeamCriteriaValue[]> = this.http.post<TeamCriteriaValue[]>(url, teamCriteriaValues, {
       // headers: { 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type' }
     });
@@ -162,7 +162,7 @@ export class DatabaseAPI {
   }
 
   getPickList(userID: number, eventID: number): Observable<PickListResponse> {
-    let url = `http://localhost:3000/?cmd=getTeamCriteriaScore&userid=${userID}&eventid=${eventID}`;
+    let url = `http://54.209.71.75:3000/?cmd=getTeamCriteriaScore&userid=${userID}&eventid=${eventID}`;
 
     return this.http.get<PickListResponse>(url);
   }
